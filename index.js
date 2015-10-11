@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var amazonSvc = require('./services/amazon');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -10,8 +11,21 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.render('pages/index');
+  response.render('pages/login');
 });
+
+app.get('/login', function(request, response) {
+  response.render('pages/login');
+});
+
+app.get('/login_redirect', function(request, response){
+  var accessToken = request.query.access_token;
+  
+  amazonSvc.getUserProfile(accessToken, function(authMessage){
+    response.render('pages/login_redirect', {message : authMessage});  
+  });
+});
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
