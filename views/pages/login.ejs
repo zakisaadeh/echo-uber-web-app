@@ -31,7 +31,7 @@
 
   document.getElementById('LoginWithAmazon').onclick = function() {
     options = { scope : 'profile' };
-    amazon.Login.authorize(options, 'http://localhost:5000/login_redirect');
+    amazon.Login.authorize(options, '<%=host%>' +'/login_redirect');
     return false;
   };
 
