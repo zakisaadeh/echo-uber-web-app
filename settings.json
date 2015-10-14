@@ -1,5 +1,6 @@
 {
 	"amazonClientId" : "amzn1.application-oa2-client.9033e706c427413fb349f5297bdaa6ee",
 	"host" : "https://secure-lowlands-4323.herokuapp.com",
-	"host-development" : "http://localhost:5000"
+	"host-development" : "http://localhost:5000",
+	"aws_region" : "us-east-1"
 }

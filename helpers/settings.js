@@ -15,6 +15,12 @@ var getSetting  = function (key){
 	}
 };
 
+var getEnvVar  = function (key){
+	return process.env[key];
+};
+
+
 module.exports = {
-	getSetting : getSetting	
+	getSetting : getSetting,
+	getEnvVar : getEnvVar 
 };
