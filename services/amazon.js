@@ -71,8 +71,34 @@ var storeUser = function (user, cb){
 	});
 };
 
+var getUser = function (amazonUserId, cb){
+	
+	var db = new AWS.DynamoDB();
+	
+	var params = {
+		TableName : 'Users',
+		Key: {
+			"amazonUserId": {
+            	"S": amazonUserId
+        	}			
+		}
+	};
+	
+	db.getItem(params, function(err, data) {
+		if (err){
+			console.log(err, err.stack); // an error occurred
+			return cb(err);
+		} 
+		else{
+			console.log(data);           // successful response
+			return cb(null, data);
+		}     
+	});
+};
+
 
 module.exports = {
 	getUserProfile : getUserProfile,
-	storeUser : storeUser	
+	storeUser : storeUser,
+	getUser: getUser
 };
