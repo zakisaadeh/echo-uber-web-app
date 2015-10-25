@@ -13,6 +13,9 @@ var getSetting  = function (key){
 			return settings[key];
 		}
 	}
+	else{
+		return settings[key];
+	}
 };
 
 var getEnvVar  = function (key){
