@@ -48,24 +48,12 @@ app.get('/login_redirect', function(request, response){
   
 });
 
-// app.get('/test', function(request, response){
-//   amazonSvc.storeUser({
-//     amazonUserId : "amzn1.account.AGI6WWJDINNNS5DCVI4KZQKR62HA"
-//   }, function(err, data){
-//       response.json({
-//         "error" : err,
-//         "data" : data
-//       });
-//   });
-// });
-
 
 app.get('/uber_redirect', function(request, response){
   
   var oauthCode = request.query.code;
   
   var amazonUserId = request.cookies["amazonUserId"];    
-   
    
   uberSvc.exchangeAuthCodeWithAccessToken(oauthCode, function(err, accessToken){
     
@@ -75,15 +63,43 @@ app.get('/uber_redirect', function(request, response){
     };
     
     amazonSvc.storeUser(user, function(dberr, data){
-      response.render('pages/member_area', 
+      response.render('pages/uber_config', 
       {
         message : err ? "Connecting to Uber Failed." : "You have successfully connected Uber account."
       });
     });
   
   });
-  
 });
+
+
+app.get('/save_uber_settings', function(request, response){
+  
+  var amazonUserId = request.cookies["amazonUserId"];    
+  
+  amazonSvc.getUser(amazonUserId, function(userError, userResult){
+
+    if(userError){
+      response.render('pages/uber_config', 
+      {
+        message : userError ? "There was an error saving your uber settings." : "You have successfully saved your uber settings."
+      });      
+    }
+    else{
+      userResult.lat = request.query.lat;
+      userResult.lon = request.query.long;
+      
+      amazonSvc.storeUser(userResult, function(storeError, storeResult){
+        response.render('pages/uber_config', 
+        {
+          message : storeError ? "There was an error saving your uber settings." : "You have successfully saved your uber settings."
+        });      
+      });    
+    }
+
+  });
+});
+
 
 
 app.listen(app.get('port'), function() {

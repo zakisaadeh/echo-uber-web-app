@@ -6,12 +6,39 @@
 
 <body>
 
-<%- JSON.stringify(message) %>
+<div class="row">
+ <div class="col-md-12 text-center">
+  <h1>Alexa 3rd Party Integrations Console</h1>
+ </div> 
+</div>
 
-</br>
-<% if(locals.uberLoginLink) { %>
-<a href="<%= uberLoginLink %>">Connect My Uber Account</href>
-<% } %>
+<div class="row">
+ <div class="col-md-12 text-center">
+  <h4>Enable a third party service!</h4>
+ </div> 
+</div>
+
+<div class="row">
+ <div class="col-md-12 text-center" style="margin-top:50px;">
+    <% if(locals.uberLoginLink) { %>
+    <a class="btn btn-primary" href="<%= uberLoginLink %>">Connect My Uber Account</a>
+    <% } %> 
+ </div>
+</div>
+
+<div class="row">
+ <div class="col-md-12 text-center" style="margin-top:15px;">
+    <a class="btn btn-primary" href="#" disabled>Connect My Nest Account</a>
+ </div>
+</div>
+
+<div class="row">
+ <div class="col-md-12 text-center" style="margin-top:15px;">
+    <a class="btn btn-primary" href="#" disabled>Connect my TV</a>
+ </div>
+</div>
+
+
 
 </body>
 

@@ -62,6 +62,25 @@ var storeUser = function (user, cb){
 		  	"S": user.uberRefreshToken	
 		};
 	}
+	
+	if(user.uberRequestId){
+		params.Item["uberRequestId"] = {
+		  	"S": user.uberRequestId	
+		};
+	}
+	
+	if(user.lat){
+		params.Item["lat"] = {
+		  	"S": user.lat	
+		};
+	}		
+	
+	if(user.lon){
+		params.Item["lon"] = {
+		  	"S": user.lon	
+		};
+	}			
+	
 
 	db.putItem(params, function(err, data) {
 		if (err) console.log(err, err.stack);
@@ -91,10 +110,32 @@ var getUser = function (amazonUserId, cb){
 		} 
 		else{
 			console.log(data);           // successful response
-			return cb(null, data);
+			return cb(null, flattenItem(data));
 		}     
 	});
 };
+
+function flattenItem(result){
+    var item = result.Item;
+	
+    var flattenedItem = {};
+ 
+    for (var property in item) {
+        if (item.hasOwnProperty(property)) {
+            
+            var itemProp = item[property];
+            
+            for (var innerProperty in itemProp) {
+                if (itemProp.hasOwnProperty(innerProperty)) {
+                    flattenedItem[property] = itemProp[innerProperty];
+					break;
+                }
+            }       
+        }
+    }
+	
+	return flattenedItem;	
+}
 
 
 module.exports = {
