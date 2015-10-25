@@ -1,7 +1,7 @@
 var needle = require('needle');
 var settingsHelper = require("../helpers/settings");
 var AWS = require('aws-sdk');
-AWS.config.region = settingsHelper.getSetting("aws_region");
+AWS.config.region = settingsHelper.getSetting("awsRegion");
 
 var getUserProfile = function(access_token, cb){
 
